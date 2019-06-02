@@ -11,7 +11,7 @@ namespace RiotPHP\Endpoints;
  * @since 1.0
  * @version 1.0
  */
-class ThirdPartyCodeEndpoint extends CommonEndpoint
+class ThirdPartyCodeEndpoint extends GenericEndpoint
 {
     
 }

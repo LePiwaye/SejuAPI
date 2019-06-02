@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: piwaye
- * Date: 02/01/18
- * Time: 09:48
- */
 
 namespace RiotPHP\Endpoints;
 
@@ -17,7 +11,7 @@ namespace RiotPHP\Endpoints;
  * @since 1.0
  * @version 1.0
  */
-class ChampionEndpoint extends CommonEndpoint
+class ChampionEndpoint extends GenericEndpoint
 {
 
     /**
@@ -26,11 +20,31 @@ class ChampionEndpoint extends CommonEndpoint
      * @author Piwaye
      * @since 1.0
      * @version 1.0
-     * @return array|string Data array
-     * @throws Exceptions\BadJSONDataException
+     * @return \RiotPHP\DTO\ChampionInfoDTO Data array
+     * @throws \RiotPHP\Exceptions\BadJSONDataException
+     * @throws \RiotPHP\Exceptions\UnsupportedAPICall
      */
     public function getChampionRotations(){        
         $query = "https://" . $this->host . "/lol/platform/v3/champion-rotations";
-        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET,$query, $this->returnFormat);
+        $response = $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET,$query);
+
+        if(is_array($response)){
+            $responseDTO = new \RiotPHP\DTO\ChampionInfoDTO();
+
+            for($iterableResponse = 0; $iterableResponse < count($response['freeChampionIds']); $iterableResponse++){
+                $responseDTO->addFreeChampionId($response['freeChampionIds'][$iterableResponse]);
+            }
+
+            for($iterableResponse = 0; $iterableResponse < count($response['freeChampionIdsForNewPlayers']); $iterableResponse++){
+                $responseDTO->addFreeChampionIdForNewPlayers($response['freeChampionIdsForNewPlayers'][$iterableResponse]);
+            }
+
+            $responseDTO->setMaxNewPlayerLevel($response['maxNewPlayerLevel']);
+
+            return $responseDTO;
+        }
+
+        throw new \RiotPHP\Exceptions\UnsupportedAPICall();
+
     }   
 }

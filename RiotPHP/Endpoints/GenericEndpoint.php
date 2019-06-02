@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: piwaye
- * Date: 30/05/18
- * Time: 11:31
- */
 
 namespace RiotPHP\Endpoints;
 
@@ -17,7 +11,7 @@ namespace RiotPHP\Endpoints;
  * @since 1.0
  * @version 1.0
  */
-class CommonEndpoint
+class GenericEndpoint
 {
     /**
      * @var string Server name in a human-readable format
@@ -52,11 +46,6 @@ class CommonEndpoint
     protected $proxy;
 
     /**
-     * @var int Set this parameter to ReturnFormat::JSON if you want your data set as JSON, or ReturnFormat::PHP if you want it parsed as a PHP array
-     */
-    protected $returnFormat;
-
-    /**
      * @var CallManager Endpoint CallManager
      */
     protected $callManager;
@@ -70,18 +59,6 @@ class CommonEndpoint
     public function getServiceRegion(){
         return $this->serviceRegion;
     }
-
-    /**
-     * Getter for Return Format (used for unit tests)
-     * @author Piwaye
-     * @since 1.0
-     * @version 1.0
-     * @return int Return format
-     */
-    public function getReturnFormat(){
-        return $this->returnFormat;
-    }
-
     /**
      * Champion Mastery constructor. This constructor does next to nothing, but is required to build an instance.
      * @author Piwaye
@@ -98,7 +75,6 @@ class CommonEndpoint
         $this->servicePlatform = array();
         $this->proxy = null;
         $this->callManager = new \RiotPHP\Tools\CallManager();
-        $this->returnFormat = \RiotPHP\Collections\ReturnFormat::JSON;
     }
 
     /**
@@ -110,7 +86,7 @@ class CommonEndpoint
      * @since 1.0
      * @version 1.0
      */
-    public function update($data,$returnFormat){
+    public function update($data){
         if(!is_null($data)){
             $this->name = $data['name'];
             $this->serviceRegion = $data['serviceRegion'];
@@ -119,6 +95,5 @@ class CommonEndpoint
             $this->proxy = $data['proxy'];
             $this->allowedAPIs = $data['allowedAPIs'];
         }
-        $this->returnFormat = $returnFormat;
     }
 }

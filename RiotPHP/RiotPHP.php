@@ -51,11 +51,6 @@ class RiotPHP
     private $proxy;
 
     /**
-     * @var int Set this parameter to ReturnFormat::JSON if you want your data set as JSON, or ReturnFormat::PHP if you want it parsed as a PHP array
-     */
-    private $returnFormat;
-
-    /**
      * @var ChampionMasteryEndpoint Champion Mastery endpoint manager
      */
     public $championMasteryEndpoint;
@@ -118,7 +113,6 @@ class RiotPHP
         $this->serviceRegion = null;
         $this->servicePlatform = array();
         $this->proxy = null;
-        $this->returnFormat = \RiotPHP\Collections\ReturnFormat::JSON;
 
         $this->initializeManagers();
     }
@@ -150,7 +144,7 @@ class RiotPHP
                 $this->proxy = $parsedJSONArray[$serverName]['proxy'];
                 $this->allowedAPIs = $parsedJSONArray[$serverName]['allowedAPIs'];
 
-                $this->notifyManagers($parsedJSONArray[$serverName], $this->returnFormat);
+                $this->notifyManagers($parsedJSONArray[$serverName]);
             }
         }
     }
@@ -163,8 +157,7 @@ class RiotPHP
      * @version 1.0
      */
     public function setReturnFormat($returnFormat){
-        $this->returnFormat = $returnFormat;
-        $this->notifyManagers(null, $returnFormat);
+        $this->notifyManagers(null);
     }
 
     /**
@@ -194,17 +187,17 @@ class RiotPHP
      * @since 1.0
      * @version 1.0
      */
-    private function notifyManagers($data, $returnFormat){
-        $this->championMasteryEndpoint->update($data, $returnFormat);
-        $this->championEndpoint->update($data,$returnFormat);
-        $this->leagueEndpoint->update($data,$returnFormat);
-        $this->lolStatusEndpoint->update($data, $returnFormat);
-        $this->matchEndpoint->update($data,$returnFormat);
-        $this->spectatorEndpoint->update($data,$returnFormat);
-        $this->summonerEndpoint->update($data, $returnFormat);
-        $this->thirdPartyCodeEndpoint->update($data, $returnFormat);
-        $this->tournamentStubEndpoint->update($data,$returnFormat);
-        $this->tournamentEndpoint->update($data,$returnFormat);
+    private function notifyManagers($data){
+        $this->championMasteryEndpoint->update($data);
+        $this->championEndpoint->update($data);
+        $this->leagueEndpoint->update($data);
+        $this->lolStatusEndpoint->update($data);
+        $this->matchEndpoint->update($data);
+        $this->spectatorEndpoint->update($data);
+        $this->summonerEndpoint->update($data);
+        $this->thirdPartyCodeEndpoint->update($data);
+        $this->tournamentStubEndpoint->update($data);
+        $this->tournamentEndpoint->update($data);
     }
 
     /**
@@ -216,16 +209,5 @@ class RiotPHP
      */
     public function getServiceRegion(){
         return $this->serviceRegion;
-    }
-
-    /**
-     * Getter for Return Format (used for unit tests)
-     * @author Piwaye
-     * @since 1.0
-     * @version 1.0
-     * @return int Return format
-     */
-    public function getReturnFormat(){
-        return $this->returnFormat;
     }
 }
