@@ -32,7 +32,7 @@ class ChampionMasteryEndpoint extends CommonEndpoint
      */
     public function getChampionMasteriesBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/champion-masteries/by-summoner/" . $encryptedSummonerID;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 
     /**
@@ -48,7 +48,7 @@ class ChampionMasteryEndpoint extends CommonEndpoint
      */
     public function getChampionMasteryBySummonerIDByChampionID($encryptedSummonerID, $championID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/champion-masteries/by-summoner/" . $encryptedSummonerID . "/by-champion/" . $championID;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 
     /**
@@ -63,6 +63,6 @@ class ChampionMasteryEndpoint extends CommonEndpoint
      */
     public function getChampionScoreBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/scores/by-summoner/" . $encryptedSummonerID;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 }

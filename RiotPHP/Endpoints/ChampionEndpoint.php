@@ -31,6 +31,6 @@ class ChampionEndpoint extends CommonEndpoint
      */
     public function getChampionRotations(){        
         $query = "https://" . $this->host . "/lol/platform/v3/champion-rotations";
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET,$query, $this->returnFormat);
     }   
 }

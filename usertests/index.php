@@ -8,7 +8,5 @@
     RiotPHP\Collections\Tier::DIAMOND,
     RiotPHP\Collections\Division::IV,
     1));
+    // print_r($rp->championEndpoint->getChampionRotations());
     echo "</pre>";
-
-
-   

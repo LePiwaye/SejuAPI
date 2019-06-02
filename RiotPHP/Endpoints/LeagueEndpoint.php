@@ -31,7 +31,7 @@ class LeagueEndpoint extends CommonEndpoint
      */
     public function getChallengerLeagueForGivenQueue($givenQueue = Collections\RankedQueueType::RANKED_SOLO_5x5){
         $query = "https://" . $this->host . "/lol/league/v4/challengerleagues/by-queue/" . $givenQueue;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 
     /**
@@ -46,7 +46,7 @@ class LeagueEndpoint extends CommonEndpoint
      */
     public function getGrandmasterLeagueForGivenQueue($givenQueue = Collections\RankedQueueType::RANKED_SOLO_5x5){
         $query = "https://" . $this->host . "/lol/league/v4/grandmasterleagues/by-queue/" . $givenQueue;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 
     /**
@@ -61,7 +61,7 @@ class LeagueEndpoint extends CommonEndpoint
      */
     public function getMasterLeagueForGivenQueue($givenQueue = Collections\RankedQueueType::RANKED_SOLO_5x5){
         $query = "https://" . $this->host . "/lol/league/v4/masterleagues/by-queue/" . $givenQueue;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }    
 
     /**
@@ -76,7 +76,7 @@ class LeagueEndpoint extends CommonEndpoint
      */
     public function getLeaguesEntriesBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/league/v4/entries/by-summoner/" . $encryptedSummonerID;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 
     /**
@@ -94,7 +94,7 @@ class LeagueEndpoint extends CommonEndpoint
      */
     public function getLeaguesEntriesByQueueAndTierAndDivision($givenQueue, $givenTier, $givenDivision, $page = 1){
         $query = "https://" . $this->host . "/lol/league/v4/entries/" . $givenQueue . "/" . $givenTier . "/" . $givenDivision . "?page=" . $page;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 
     /**
@@ -109,6 +109,6 @@ class LeagueEndpoint extends CommonEndpoint
      */
     public function getLeagueByLeagueID($leagueID){
         $query = "https://" . $this->host . "/lol/league/v4/leagues/" . $leagueID;
-        return $this->callManager->sendQuery($query, $this->returnFormat);
+        return $this->callManager->sendQuery(\RiotPHP\Collections\QueryHeader::GET, $query, $this->returnFormat);
     }
 }
