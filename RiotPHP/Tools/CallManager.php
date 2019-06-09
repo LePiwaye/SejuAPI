@@ -27,7 +27,7 @@ class CallManager
         $confManager = new \RiotPHP\Tools\ConfigManager();
         $curlFetcher = curl_init($queryURI);
 
-        //Passation de type de requête
+        //Request type
         switch($queryHeader){
             case \RiotPHP\Collections\QueryHeader::GET:
                 curl_setopt($curlFetcher, CURLOPT_HTTPGET, true);
@@ -59,8 +59,6 @@ class CallManager
             'X-Riot-Token: ' . $confManager->getAPIKey()
         ));
 
-        
-        return json_decode(curl_exec($curlFetcher), true);
-      
+        return json_decode(curl_exec($curlFetcher), true);  
     }
 }
