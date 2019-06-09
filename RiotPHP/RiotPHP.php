@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: piwaye
- * Date: 18/12/17
- * Time: 15:35
- */
 
 namespace RiotPHP;
 
@@ -51,52 +45,52 @@ class RiotPHP
     private $proxy;
 
     /**
-     * @var ChampionMasteryEndpoint Champion Mastery endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\ChampionMasteryEndpoint Champion Mastery endpoint manager
      */
     public $championMasteryEndpoint;
 
     /**
-     * @var ChampionEndpoint Champion endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\ChampionEndpoint Champion endpoint manager
      */
     public $championEndpoint;
 
     /**
-     * @var LeagueEndpoint League endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\LeagueEndpoint League endpoint manager
      */
     public $leagueEndpoint;
 
     /**
-     * @var LolStatusEndpoint LOL Status endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\LolStatusEndpoint LOL Status endpoint manager
      */
     public $lolStatusEndpoint;
 
     /**
-     * @var MatchEndpoint Match endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\MatchEndpoint Match endpoint manager
      */
     public $matchEndpoint;
 
     /**
-     * @var SpectatorEndpoint Spectator endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\SpectatorEndpoint Spectator endpoint manager
      */
     public $spectatorEndpoint;
 
     /**
-     * @var SummonerEndpoint Summoner endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\SummonerEndpoint Summoner endpoint manager
      */
     public $summonerEndpoint;
 
     /**
-     * @var ThirdPartyCodeEndpoint Third party code endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\ThirdPartyCodeEndpoint Third party code endpoint manager
      */
     public $thirdPartyCodeEndpoint;
 
     /**
-     * @var TournamentStubEndpoint Tournament stub endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\TournamentStubEndpoint Tournament stub endpoint manager
      */
     public $tournamentStubEndpoint;
 
     /**
-     * @var TournamentEndpoint Tournament endpoint manager
+     * @var \RiotPHP\Endpoints\Riot\TournamentEndpoint Tournament endpoint manager
      */
     public $tournamentEndpoint;
 
@@ -122,19 +116,19 @@ class RiotPHP
      * @author Piwaye
      * @param $serverName string Server identifier
      * @since 1.0
-     * @throws Exceptions\IllegalServerException Is thrown with an IllegalServer code when a server identifier that isn't described
+     * @throws \RiotPHP\Exceptions\Riot\IllegalServerException Is thrown with an IllegalServer code when a server identifier that isn't described
      *         into the Servers.json file is specified
-     * @throws Exceptions\BadJSONDataException If the provided JSON is corrupted
+     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException If the provided JSON is corrupted
      * @version 1.0
      */
     public function setCurrentServer($serverName){
-        $JSONUtils = new \RiotPHP\Tools\JSONUtils();
+        $JSONUtils = new \RiotPHP\Tools\Riot\JSONUtils();
         $JSONData = $JSONUtils->readJSONFile("../conf/Servers.json");
 
        if(!is_null($JSONData)){
             $parsedJSONArray = $JSONUtils->parseJSONToArray($JSONData);
             if(!array_key_exists($serverName,$parsedJSONArray)){
-                throw new \RiotPHP\Exceptions\IllegalServerException();
+                throw new \RiotPHP\Exceptions\Riot\IllegalServerException();
             }
             else{
                 $this->name = $parsedJSONArray[$serverName]['name'];
@@ -167,16 +161,16 @@ class RiotPHP
      * @version 1.0
      */
     private function initializeManagers(){
-        $this->championMasteryEndpoint = new \RiotPHP\Endpoints\ChampionMasteryEndpoint();
-        $this->championEndpoint = new \RiotPHP\Endpoints\ChampionEndpoint();
-        $this->leagueEndpoint = new \RiotPHP\Endpoints\LeagueEndpoint();
-        $this->lolStatusEndpoint = new \RiotPHP\Endpoints\LolStatusEndpoint();
-        $this->matchEndpoint = new \RiotPHP\Endpoints\MatchEndpoint();
-        $this->spectatorEndpoint = new \RiotPHP\Endpoints\SpectatorEndpoint();
-        $this->summonerEndpoint = new \RiotPHP\Endpoints\SummonerEndpoint();
-        $this->thirdPartyCodeEndpoint = new \RiotPHP\Endpoints\ThirdPartyCodeEndpoint();
-        $this->tournamentStubEndpoint = new \RiotPHP\Endpoints\TournamentStubEndpoint();
-        $this->tournamentEndpoint = new \RiotPHP\Endpoints\TournamentEndpoint();
+        $this->championMasteryEndpoint = new \RiotPHP\Endpoints\Riot\ChampionMasteryEndpoint();
+        $this->championEndpoint = new \RiotPHP\Endpoints\Riot\ChampionEndpoint();
+        $this->leagueEndpoint = new \RiotPHP\Endpoints\Riot\LeagueEndpoint();
+        $this->lolStatusEndpoint = new \RiotPHP\Endpoints\Riot\LolStatusEndpoint();
+        $this->matchEndpoint = new \RiotPHP\Endpoints\Riot\MatchEndpoint();
+        $this->spectatorEndpoint = new \RiotPHP\Endpoints\Riot\SpectatorEndpoint();
+        $this->summonerEndpoint = new \RiotPHP\Endpoints\Riot\SummonerEndpoint();
+        $this->thirdPartyCodeEndpoint = new \RiotPHP\Endpoints\Riot\ThirdPartyCodeEndpoint();
+        $this->tournamentStubEndpoint = new \RiotPHP\Endpoints\Riot\TournamentStubEndpoint();
+        $this->tournamentEndpoint = new \RiotPHP\Endpoints\Riot\TournamentEndpoint();
     }
 
     /**
