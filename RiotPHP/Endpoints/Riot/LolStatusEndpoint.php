@@ -13,6 +13,11 @@ namespace RiotPHP\Endpoints\Riot;
  */
 class LolStatusEndpoint extends GenericEndpoint
 {
+    public function __construct(){
+        parent::__construct();
+        $this->endpointName = \RiotPHP\Collections\Riot\EndpointDescriptor::LOL_STATUS;
+    }
+
      /**
      * Get the shard status for the current server
      * @see /lol/status/v3/shard-data
@@ -24,6 +29,6 @@ class LolStatusEndpoint extends GenericEndpoint
      */
     public function getShardData(){
         $query = "https://" . $this->host . "/lol/status/v3/shard-data";
-        return $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        return $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
     }
 }

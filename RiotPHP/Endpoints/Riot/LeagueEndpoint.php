@@ -13,6 +13,12 @@ namespace RiotPHP\Endpoints\Riot;
  */
 class LeagueEndpoint extends GenericEndpoint
 {
+    
+    public function __construct(){
+        parent::__construct();
+        $this->endpointName = \RiotPHP\Collections\Riot\EndpointDescriptor::LEAGUE;
+    }
+
     /**
      * Get challenger league composition for a specified ranked queue type
      * @see /lol/league/v4/challengerleagues/by-queue/{queue}
@@ -25,7 +31,7 @@ class LeagueEndpoint extends GenericEndpoint
      */
     public function getChallengerLeagueForGivenQueue($givenQueue = \RiotPHP\Collections\Riot\RankedQueueType::RANKED_SOLO_5x5){
         $query = "https://" . $this->host . "/lol/league/v4/challengerleagues/by-queue/" . $givenQueue;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
 
         if(is_array($response)){
             $responseDTO = new \RiotPHP\DTO\Riot\LeagueListDTO();
@@ -103,7 +109,7 @@ class LeagueEndpoint extends GenericEndpoint
      */
     public function getGrandmasterLeagueForGivenQueue($givenQueue = \RiotPHP\Collections\Riot\RankedQueueType::RANKED_SOLO_5x5){
         $query = "https://" . $this->host . "/lol/league/v4/grandmasterleagues/by-queue/" . $givenQueue;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
 
         if(is_array($response)){
             $responseDTO = new \RiotPHP\DTO\Riot\LeagueListDTO();
@@ -181,7 +187,7 @@ class LeagueEndpoint extends GenericEndpoint
      */
     public function getMasterLeagueForGivenQueue($givenQueue = \RiotPHP\Collections\Riot\RankedQueueType::RANKED_SOLO_5x5){
         $query = "https://" . $this->host . "/lol/league/v4/masterleagues/by-queue/" . $givenQueue;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
 
         if(is_array($response)){
             $responseDTO = new \RiotPHP\DTO\Riot\LeagueListDTO();
@@ -259,7 +265,7 @@ class LeagueEndpoint extends GenericEndpoint
      */
     public function getLeaguesEntriesBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/league/v4/entries/by-summoner/" . $encryptedSummonerID;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
 
         if(is_array($response)){
             $responseDTO = array();
@@ -335,7 +341,7 @@ class LeagueEndpoint extends GenericEndpoint
      */
     public function getLeaguesEntriesByQueueAndTierAndDivision($givenQueue, $givenTier, $givenDivision, $page = 1){
         $query = "https://" . $this->host . "/lol/league/v4/entries/" . $givenQueue . "/" . $givenTier . "/" . $givenDivision . "?page=" . $page;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
 
         if(is_array($response)){
             $responseDTO = array();
@@ -408,7 +414,7 @@ class LeagueEndpoint extends GenericEndpoint
      */
     public function getLeagueByLeagueID($leagueID){
         $query = "https://" . $this->host . "/lol/league/v4/leagues/" . $leagueID;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
 
         if(is_array($response)){
             $responseDTO = new \RiotPHP\DTO\Riot\LeagueListDTO();

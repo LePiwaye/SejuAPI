@@ -14,6 +14,11 @@ namespace RiotPHP\Endpoints\Riot;
 class ChampionEndpoint extends GenericEndpoint
 {
 
+    public function __construct(){
+        parent::__construct();
+        $this->endpointName = \RiotPHP\Collections\Riot\EndpointDescriptor::CHAMPION;
+    }
+
     /**
      * Retrieves champions rotations
      * @see /lol/platform/v3/champion-rotations
@@ -26,7 +31,7 @@ class ChampionEndpoint extends GenericEndpoint
      */
     public function getChampionRotations(){        
         $query = "https://" . $this->host . "/lol/platform/v3/champion-rotations";
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET,$query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET,$query);
 
         if(is_array($response)){
             $responseDTO = new \RiotPHP\DTO\Riot\ChampionInfoDTO();

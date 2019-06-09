@@ -34,12 +34,6 @@ class RiotPHP
     private $host;
 
     /**
-     * @var array Array of allowed APIs for this very server. This data is collected from the Servers.json configuration
-     * file located at conf/Servers.json
-     */
-    private $allowedAPIs;
-
-    /**
      * @var string Server proxy URI, which might be common with another server
      */
     private $proxy;
@@ -101,7 +95,6 @@ class RiotPHP
      * @since 1.0
      */
     public function __construct(){
-        $this->allowedAPIs = array();
         $this->host = null;
         $this->name = null;
         $this->serviceRegion = null;
@@ -114,7 +107,7 @@ class RiotPHP
     /**
      * This method will read the Server configuration file and set correct parameters into this instance.
      * @author Piwaye
-     * @param $serverName string Server identifier
+     * @param $serverName \RiotPHP\Collections\Riot\Server Server identifier
      * @since 1.0
      * @throws \RiotPHP\Exceptions\Riot\IllegalServerException Is thrown with an IllegalServer code when a server identifier that isn't described
      *         into the Servers.json file is specified
@@ -136,22 +129,10 @@ class RiotPHP
                 $this->servicePlatform = $parsedJSONArray[$serverName]['servicePlatform'];
                 $this->host = $parsedJSONArray[$serverName]['host'];
                 $this->proxy = $parsedJSONArray[$serverName]['proxy'];
-                $this->allowedAPIs = $parsedJSONArray[$serverName]['allowedAPIs'];
 
                 $this->notifyManagers($parsedJSONArray[$serverName]);
             }
         }
-    }
-
-    /**
-     * Changes global return format
-     * @param $returnFormat int New return format
-     * @author Piwaye
-     * @since 1.0
-     * @version 1.0
-     */
-    public function setReturnFormat($returnFormat){
-        $this->notifyManagers(null);
     }
 
     /**
@@ -192,16 +173,5 @@ class RiotPHP
         $this->thirdPartyCodeEndpoint->update($data);
         $this->tournamentStubEndpoint->update($data);
         $this->tournamentEndpoint->update($data);
-    }
-
-    /**
-     * Getter for Service Region (used for unit tests)
-     * @author Piwaye
-     * @since 1.0
-     * @version 1.0
-     * @return string Service region
-     */
-    public function getServiceRegion(){
-        return $this->serviceRegion;
     }
 }

@@ -13,5 +13,8 @@ namespace RiotPHP\Endpoints\Riot;
  */
 class SpectatorEndpoint extends GenericEndpoint
 {
-    
+    public function __construct(){
+        parent::__construct();
+        $this->endpointName = \RiotPHP\Collections\Riot\EndpointDescriptor::SPECTATOR;
+    }
 }

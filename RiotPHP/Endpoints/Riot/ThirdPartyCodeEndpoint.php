@@ -13,5 +13,8 @@ namespace RiotPHP\Endpoints\Riot;
  */
 class ThirdPartyCodeEndpoint extends GenericEndpoint
 {
-    
+    public function __construct(){
+        parent::__construct();
+        $this->endpointName = \RiotPHP\Collections\Riot\EndpointDescriptor::THIRD_PARTY_CODE;
+    }
 }

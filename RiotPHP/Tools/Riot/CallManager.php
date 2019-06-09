@@ -13,17 +13,26 @@ class CallManager
 {
     /**
      * Sends a query to Riot servers and gets the resulting data
+     * @param $endpointName \RiotPHP\Collections\Riot\EndpointDescriptor Specified endpoint
+     * @param $serviceRegion \RiotPHP\Collections\Riot\Server Server which the API call is sent to
+     * @param $queryHeader \RiotPHP\Collections\Riot\QueryHeader Query type (GET, PUT or POST, defaults to GET)
      * @param $queryURI String The called URI
      * @param \RiotPHP\Collections\Riot\QueryHeader $queryHeader 
      * @param Object $inFile Loaded file resource to be pushed through PUT instruction. Defaults to null
      * @param int $infileSize Size in octets of the file to be pushed through PUT instruction. Defaults to zero
-     * @return array Query result, formatted as $returnFormat
+     * @return array Query result
      * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
+     * @throws \RiotPHP\Exceptions\Riot\ForbiddenEndpointException
      * @author Piwaye
      * @since 1.0
      * @version 1.0
      */
-    public function sendQuery($queryHeader, $queryURI, $inFile = null, $infileSize = 0){
+    public function sendQuery($endpointName, $serviceRegion, $queryHeader, $queryURI, $inFile = null, $infileSize = 0){
+
+        if(!$this->checkAPIAllowance($endpointName, $serviceRegion)){
+            throw new \RiotPHP\Exceptions\Riot\ForbiddenEndpointException();
+        }
+
         $confManager = new \RiotPHP\Tools\Riot\ConfigManager();
         $curlFetcher = curl_init($queryURI);
 
@@ -60,5 +69,33 @@ class CallManager
         ));
 
         return json_decode(curl_exec($curlFetcher), true);  
+    }
+
+    /**
+     * Checks if the $serviceRegion provided is allowed to run the $endpointName endpoint
+     * @param $endpointName \RiotPHP\Collections\Riot\EndpointDescriptor Specified endpoint
+     * @param $serviceRegion \RiotPHP\Collections\Riot\Server Server which the API call is sent to
+     * @return boolean Allowance status
+     * @author Piwaye
+     * @since 1.0
+     * @version 1.0
+     */
+    private function checkAPIAllowance($endpointName, $serviceRegion){
+
+        $JSONUtils = new \RiotPHP\Tools\Riot\JSONUtils();
+        $JSONData = $JSONUtils->readJSONFile("../conf/Servers.json");        
+
+        if(!is_null($JSONData)){
+            $parsedJSONArray = $JSONUtils->parseJSONToArray($JSONData);
+
+            for($iterableResponse = 0; $iterableResponse < count($parsedJSONArray); $iterableResponse++){
+                $serverArray = $parsedJSONArray[array_keys($parsedJSONArray)[$iterableResponse]];
+                if($serverArray["serviceRegion"] == $serviceRegion){
+                    return in_array($endpointName, $serverArray["allowedAPIs"]);
+                }
+            }            
+        }
+
+        return false;
     }
 }

@@ -13,6 +13,10 @@ namespace RiotPHP\Endpoints\Riot;
  */
 class ChampionMasteryEndpoint extends GenericEndpoint
 {
+    public function __construct(){
+        parent::__construct();
+        $this->endpointName = \RiotPHP\Collections\Riot\EndpointDescriptor::CHAMPION_MASTERY;
+    }
 
     /**
      * Get the champion masteries for each champion for a specified summoner ID
@@ -27,7 +31,7 @@ class ChampionMasteryEndpoint extends GenericEndpoint
      */
     public function getChampionMasteriesBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/champion-masteries/by-summoner/" . $encryptedSummonerID;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
         
         if(is_array($response)){
             $responseDTO = array();
@@ -72,7 +76,7 @@ class ChampionMasteryEndpoint extends GenericEndpoint
      */
     public function getChampionMasteryBySummonerIDByChampionID($encryptedSummonerID, $championID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/champion-masteries/by-summoner/" . $encryptedSummonerID . "/by-champion/" . $championID;
-        $response = $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
         if(is_array($response)){
             $responseDTO = new \RiotPHP\DTO\Riot\ChampionMasteryDTO();
 
@@ -108,6 +112,6 @@ class ChampionMasteryEndpoint extends GenericEndpoint
      */
     public function getChampionScoreBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/scores/by-summoner/" . $encryptedSummonerID;
-        return $this->callManager->sendQuery(\RiotPHP\Collections\Riot\QueryHeader::GET, $query);
+        return $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \RiotPHP\Collections\Riot\QueryHeader::GET, $query);
     }
 }

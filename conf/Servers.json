@@ -11,12 +11,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "EUNE": {
@@ -31,12 +32,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "EUW": {
@@ -51,12 +53,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "JP": {
@@ -71,12 +74,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "KR": {
@@ -91,12 +95,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "LAN": {
@@ -111,12 +116,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "LAS": {
@@ -131,12 +137,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "NA": {
@@ -152,12 +159,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "OCE": {
@@ -172,12 +180,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "TR": {
@@ -192,12 +201,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "RU": {
@@ -212,12 +222,13 @@
       "champion-mastery",
       "champion",
       "league",
-      "lol-static-data",
       "lol-status",
       "match",
       "spectator",
       "summoner",
-      "third-party-code"
+      "third-party-code",
+      "tournament-stub",
+      "tournament"
     ]
   },
   "PBE": {
@@ -229,7 +240,9 @@
     "host": "pbe1.api.riotgames.com",
     "proxy": null,
     "allowedAPIs": [
-      "lol-status"
+      "lol-status",
+      "tournament-stub",
+      "tournament"
     ]
   }
 }

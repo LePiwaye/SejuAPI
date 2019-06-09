@@ -19,6 +19,11 @@ class GenericEndpoint
     protected $name;
 
     /**
+     * @var string Endpoint name
+     */
+    protected $endpointName;
+
+    /**
      * @var string Service identifier for the current server.
      */
     protected $serviceRegion;
