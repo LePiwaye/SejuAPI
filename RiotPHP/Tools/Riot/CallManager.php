@@ -75,6 +75,10 @@ class CallManager
         return $JSONUtils->parseJSONToArray($resp);
     }
 
+    public function checkRateLimitations($forceRefresh = false){
+        
+    }
+
     /**
      * Checks if the $serviceRegion provided is allowed to run the $endpointName endpoint
      * @param $endpointName \RiotPHP\Collections\Riot\EndpointDescriptor Specified endpoint
