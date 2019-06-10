@@ -68,7 +68,11 @@ class CallManager
             'X-Riot-Token: ' . $confManager->getAPIKey()
         ));
 
-        return json_decode(curl_exec($curlFetcher), true);  
+        $resp = curl_exec($curlFetcher);
+
+        $this->checkResponseHeader($curlFetcher);
+
+        return json_decode($resp, true);
     }
 
     /**
@@ -97,5 +101,19 @@ class CallManager
         }
 
         return false;
+    }
+
+    private function checkResponseHeader($curlHeader){
+        switch(curl_getinfo($curlHeader, CURLINFO_HTTP_CODE)){
+            case "200":
+            break;
+
+            case false:
+            throw new \Exception("cURL error");
+
+            default:
+            break;
+        }
+        
     }
 }

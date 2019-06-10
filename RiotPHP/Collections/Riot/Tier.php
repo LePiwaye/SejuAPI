@@ -12,6 +12,9 @@ namespace RiotPHP\Collections\Riot;
  */
 abstract class Tier
 {
+    const CHALLENGER = "CHALLENGER";
+    const GRANDMASTER = "GRANDMASTER";
+    const MASTER = "MASTER";
     const DIAMOND = "DIAMOND";
     const PLATINUM = "PLATINUM";
     const GOLD = "GOLD";
