@@ -111,7 +111,6 @@ class RiotPHP
      * @since 1.0
      * @throws \RiotPHP\Exceptions\Riot\IllegalServerException Is thrown with an IllegalServer code when a server identifier that isn't described
      *         into the Servers.json file is specified
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException If the provided JSON is corrupted
      * @version 1.0
      */
     public function setCurrentServer($serverName){

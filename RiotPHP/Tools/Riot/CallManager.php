@@ -21,7 +21,6 @@ class CallManager
      * @param Object $inFile Loaded file resource to be pushed through PUT instruction. Defaults to null
      * @param int $infileSize Size in octets of the file to be pushed through PUT instruction. Defaults to zero
      * @return array Query result
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @throws \RiotPHP\Exceptions\Riot\ForbiddenEndpointException
      * @author Piwaye
      * @since 1.0
@@ -72,7 +71,8 @@ class CallManager
 
         $this->checkResponseHeader($curlFetcher);
 
-        return json_decode($resp, true);
+        $JSONUtils = new \RiotPHP\Tools\Riot\JSONUtils();
+        return $JSONUtils->parseJSONToArray($resp);
     }
 
     /**
@@ -108,8 +108,53 @@ class CallManager
             case "200":
             break;
 
+            case "400":
+            throw new \RiotPHP\Exceptions\Riot\Network\BadRequestException();
+            break;
+
+            case "401":
+            throw new \RiotPHP\Exceptions\Riot\Network\UnauthorizedException();
+            break;
+
+            case "403":
+            throw new \RiotPHP\Exceptions\Riot\Network\ForbiddenException();
+            break;
+
+            case "404":
+            throw new \RiotPHP\Exceptions\Riot\Network\DataNotFoundException();
+            break;
+
+            case "405":
+            throw new \RiotPHP\Exceptions\Riot\Network\MethodNotAllowedException();
+            break;
+
+            case "415":
+            throw new \RiotPHP\Exceptions\Riot\Network\UnsupportedMediaTypeException();
+            break;
+
+            case "429":
+            throw new \RiotPHP\Exceptions\Riot\Network\RateLimitException();
+            break;
+
+            case "500":
+            throw new \RiotPHP\Exceptions\Riot\Network\InternalServerErrorException();
+            break;
+
+            case "502":
+            throw new \RiotPHP\Exceptions\Riot\Network\BadGatewayException();
+            break;
+
+            case "503":
+            throw new \RiotPHP\Exceptions\Riot\Network\ServiceUnavailableException();
+            break;
+
+            case "504":
+            throw new \RiotPHP\Exceptions\Riot\Network\GatewayTimeoutException();
+            break;
+
             case false:
             throw new \Exception("cURL error");
+            break;
 
             default:
             break;

@@ -24,7 +24,6 @@ class LeagueEndpoint extends GenericEndpoint
      * @see /lol/league/v4/challengerleagues/by-queue/{queue}
      * @param $givenQueue string Queue type, bundled into a RankedQueueType object (Default : RANKED_SOLO_5x5)
      * @return \RiotPHP\DTO\Riot\LeagueListDTO Data object
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @author Piwaye
      * @since 1.0
      * @version 1.0
@@ -102,7 +101,6 @@ class LeagueEndpoint extends GenericEndpoint
      * @see /lol/league/v4/grandmasterleagues/by-queue/{queue}
      * @param $givenQueue string Queue type, bundled into a RankedQueueType object (Default : RANKED_SOLO_5x5)
      * @return \RiotPHP\DTO\Riot\LeagueListDTO Data object
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @author Piwaye
      * @since 1.0
      * @version 1.0
@@ -180,7 +178,6 @@ class LeagueEndpoint extends GenericEndpoint
      * @see /lol/league/v4/masterleagues/by-queue/{queue}
      * @param $givenQueue string Queue type, bundled into a RankedQueueType object (Default : RANKED_SOLO_5x5)
      * @return \RiotPHP\DTO\Riot\LeagueListDTO Data object
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @author Piwaye
      * @since 1.0
      * @version 1.0
@@ -258,7 +255,6 @@ class LeagueEndpoint extends GenericEndpoint
      * @see /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
      * @param $encryptedSummonerID string Encrypted summoner ID
      * @return array(\RiotPHP\DTO\Riot\LeagueEntryDTO) Data array
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @author Piwaye
      * @since 1.0
      * @version 1.0
@@ -334,7 +330,6 @@ class LeagueEndpoint extends GenericEndpoint
      * @param $givenDivision \RiotPHP\Collections\Division Division, bundled into a Division object (Goes from I tp IV)
      * @param $page string Page (Default : 1)
      * @return array(\RiotPHP\DTO\Riot\LeagueEntryDTO) Data array
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @author Piwaye
      * @since 1.0
      * @version 1.0
@@ -407,7 +402,6 @@ class LeagueEndpoint extends GenericEndpoint
      * @see /lol/league/v4/leagues/{leagueID}
      * @param $leagueID string League ID
      * @return \RiotPHP\DTO\Riot\LeagueListDTO Data object
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @author Piwaye
      * @since 1.0
      * @version 1.0

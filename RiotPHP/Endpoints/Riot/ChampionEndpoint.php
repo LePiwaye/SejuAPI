@@ -26,7 +26,6 @@ class ChampionEndpoint extends GenericEndpoint
      * @since 1.0
      * @version 1.0
      * @return \RiotPHP\DTO\Riot\ChampionInfoDTO Data array
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @throws \RiotPHP\Exceptions\Riot\UnsupportedAPICall
      */
     public function getChampionRotations(){        

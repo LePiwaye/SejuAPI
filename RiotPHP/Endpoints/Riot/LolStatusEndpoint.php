@@ -25,7 +25,6 @@ class LolStatusEndpoint extends GenericEndpoint
      * @since 1.0
      * @version 1.0
      * @return array|string Data array
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      */
     public function getShardData(){
         $query = "https://" . $this->host . "/lol/status/v3/shard-data";

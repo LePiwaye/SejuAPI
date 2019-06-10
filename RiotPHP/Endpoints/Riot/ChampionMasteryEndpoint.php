@@ -26,7 +26,6 @@ class ChampionMasteryEndpoint extends GenericEndpoint
      * @since 1.0
      * @version 1.0
      * @return array(\RiotPHP\DTO\Riot\ChampionMasteryDTO) Data object
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @throws \RiotPHP\Exceptions\Riot\UnsupportedAPICall
      */
     public function getChampionMasteriesBySummonerID($encryptedSummonerID){
@@ -71,7 +70,6 @@ class ChampionMasteryEndpoint extends GenericEndpoint
      * @since 1.0
      * @version 1.0
      * @return \RiotPHP\DTO\Riot\ChampionMasteryDTO Data object
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      * @throws \RiotPHP\Exceptions\Riot\UnsupportedAPICall
      */
     public function getChampionMasteryBySummonerIDByChampionID($encryptedSummonerID, $championID){
@@ -108,7 +106,6 @@ class ChampionMasteryEndpoint extends GenericEndpoint
      * @since 1.0
      * @version 1.0
      * @return int Mastery score
-     * @throws \RiotPHP\Exceptions\Riot\BadJSONDataException
      */
     public function getChampionScoreBySummonerID($encryptedSummonerID){
         $query = "https://" . $this->host . "/lol/champion-mastery/v4/scores/by-summoner/" . $encryptedSummonerID;

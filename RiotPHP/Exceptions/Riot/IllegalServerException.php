@@ -10,7 +10,6 @@ namespace RiotPHP\Exceptions\Riot;
 class IllegalServerException extends \Exception
 {
     public function __construct(){
-        parent::__construct("You specified a server that isn't described into the Servers.json file. Please check that you" .
-        " provided a legal server.");
+        parent::__construct("Trying to set a current server which is not defined in the Servers.json file");
     }
 }
