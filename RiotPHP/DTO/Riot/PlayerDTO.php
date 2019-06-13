@@ -27,7 +27,7 @@ class PlayerDTO extends GenericDTO
     /**
      * @var string Match history URI
      */
-    protected $matchHistoryURI;
+    protected $matchHistoryUri;
 
     /**
      * @var string Original platform ID
@@ -64,7 +64,7 @@ class PlayerDTO extends GenericDTO
     {
         $this->currentPlatformId = null;
         $this->summonerName = null;     
-        $this->matchHistoryURI = null;
+        $this->matchHistoryUri = null;
         $this->platformId = null;
         $this->currentAccountId = null;
         $this->profileIcon = null;
@@ -127,21 +127,21 @@ class PlayerDTO extends GenericDTO
      * @since 1.0
      * @version 1.0
 	 */
-	public function getMatchHistoryURI()
+	public function getMatchHistoryUri()
 	{
-		return $this->matchHistoryURI;
+		return $this->matchHistoryUri;
     }
 
 	/**
 	 * Set match history URI
-	 * @param string $matchHistoryURI Match history URI
+	 * @param string $matchHistoryUri Match history URI
 	 * @author Piwaye
      * @since 1.0
      * @version 1.0
 	 */
-	public function setMatchHistoryURI($matchHistoryURI)
+	public function setMatchHistoryUri($matchHistoryUri)
 	{
-		$this->matchHistoryURI = $matchHistoryURI;
+		$this->matchHistoryUri = $matchHistoryUri;
 	}
 
 	/**
