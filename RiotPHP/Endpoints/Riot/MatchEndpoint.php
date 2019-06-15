@@ -115,8 +115,6 @@ class MatchEndpoint extends GenericEndpoint
 
             $responseDTO->setTeams($teamArray);
 
-            //TODO : participants
-
             //ParticipantsIdentity infos
             $participantsIdentityArray = array();
 
@@ -150,6 +148,56 @@ class MatchEndpoint extends GenericEndpoint
 
             $responseDTO->setParticipantIdentities($participantsIdentityArray);
 
+            //Participants infos
+            $participantsArray = array();
+
+            if(array_key_exists("participants",$response) && is_array($response["participants"])){
+               $internalParticipantsArray = $response["participants"];
+               for($IPAL = 0; $IPAL < count($internalParticipantsArray); $IPAL++){
+                    $participant = new \RiotPHP\DTO\Riot\ParticipantDTO();
+
+                    $participant->setParticipantId($internalParticipantsArray[$IPAL]["participantId"]);
+                    $participant->setTeamId($internalParticipantsArray[$IPAL]["teamId"]);
+                    $participant->setSpell2Id($internalParticipantsArray[$IPAL]["spell2Id"]);
+                    $participant->setSpell1Id($internalParticipantsArray[$IPAL]["spell1Id"]);
+                    $participant->setHighestAchievedSeasonTier($internalParticipantsArray[$IPAL]["highestAchievedSeasonTier"]);
+                    $participant->setChampionId($internalParticipantsArray[$IPAL]["championId"]);
+
+                    //Rune INFO
+                    $internalRunesArray = array();
+                    if(array_key_exists("runes",$internalParticipantsArray[$IPAL]) && is_array($internalParticipantsArray[$IPAL]["runes"])){
+                        $runeArray = $internalParticipantsArray[$IPAL]["runes"];
+                        for($RAL = 0; $RAL < count($runeArray); $RAL++){
+                            $rune = new \RiotPHP\DTO\Riot\RuneDTO();
+                            $rune->setRuneId($runeArray[$RAL]["runeId"]);
+                            $rune->setRank($runeArray[$RAL]["rank"]);
+                            $internalRunesArray[] = $rune;
+                        }
+                    }
+                    $participant->setRunes($internalRunesArray);
+
+                    //Mastery INFO
+                    $internalMasteryArray = array();
+                    if(array_key_exists("masteries",$internalParticipantsArray[$IPAL]) && is_array($internalParticipantsArray[$IPAL]["masteries"])){
+                        $masteryArray = $internalParticipantsArray[$IPAL]["masteries"];
+                        for($MAL = 0; $MAL < count($masteryArray); $MAL++){
+                            $mastery = new \RiotPHP\DTO\Riot\MasteryDTO();
+                            $mastery->setMasteryId($runeArray[$MAL]["masteryId"]);
+                            $mastery->setRank($runeArray[$MAL]["rank"]);
+                            $internalMasteryArray[] = $mastery;
+                        }
+                    }
+                    $participant->setMasteries($internalMasteryArray);
+
+                    //TODO : timeline, stats
+
+                    $participantsArray[] = $participant;
+               }
+            }
+
+            $responseDTO->setParticipants($participantsArray);
+
+            return $responseDTO->getParticipants();
             return $responseDTO;
         }
 
