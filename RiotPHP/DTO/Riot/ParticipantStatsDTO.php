@@ -3239,4 +3239,28 @@ class ParticipantStatsDTO extends GenericDTO
 	{
 		$this->timeCCingOthers = $timeCCingOthers;
 	}
+
+	/**
+	 * Get player score 2
+	 * @return int Player score 2
+     * @author Piwaye
+     * @since 1.0
+     * @version 1.0
+	 */
+	public function getPlayerScore2()
+	{
+		return $this->playerScore2;
+    }
+
+	/**
+	 * Set player score 2
+	 * @param int $playerScore2 Player score 2
+	 * @author Piwaye
+     * @since 1.0
+     * @version 1.0
+	 */
+	public function setPlayerScore2($playerScore2)
+	{
+		$this->playerScore2 = $playerScore2;
+	}
 }

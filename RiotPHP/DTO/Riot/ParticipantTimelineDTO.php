@@ -41,7 +41,7 @@ class ParticipantTimelineDTO extends GenericDTO
     /**
      * @var array(String=>Double) Creep Score for a specific time
      */
-    protected $csPerMinDeltas;
+    protected $creepsPerMinDeltas;
 
     /**
      * @var array(String=>Double) Experience for a specific time
@@ -210,9 +210,9 @@ class ParticipantTimelineDTO extends GenericDTO
      * @since 1.0
      * @version 1.0
 	 */
-	public function getCsPerMinDeltas()
+	public function getCreepsPerMinDeltas()
 	{
-		return $this->csPerMinDeltas;
+		return $this->creepsPerMinDeltas;
     }
 
 	/**
@@ -222,9 +222,9 @@ class ParticipantTimelineDTO extends GenericDTO
      * @since 1.0
      * @version 1.0
 	 */
-	public function setCsPerMinDeltas($csPerMinDeltas)
+	public function setCreepsPerMinDeltas($csPerMinDeltas)
 	{
-		$this->csPerMinDeltas = $csPerMinDeltas;
+		$this->creepsPerMinDeltas = $csPerMinDeltas;
 	}
 
 	/**
