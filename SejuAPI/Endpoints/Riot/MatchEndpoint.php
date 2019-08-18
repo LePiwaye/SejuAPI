@@ -406,41 +406,163 @@ class MatchEndpoint extends GenericEndpoint
     /**
      * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
      * @see /lol/match/v4/matchlists/by-account/{encryptedAccountId}
-     * @param $matchId int Match ID
-     * @return \SejuAPI\DTO\Riot\MatchlistDto Data object
+     * @param $encryptedAccountId int Encrypted Account ID
+     * @param $champion array(int)|int Array of Champion IDs (Numeric values). If this array is not provided, or is empty, every champion data will be used.
+     * @param $queue array(\SejuAPI\Collections\Riot\MatchmakingQueue)|array(int)|int Array of Queue IDs (Numeric values) embedded or not in a MatchmakingQueue object. If this array is not provided, or is empty, every queue data will be used.
+     * @param $season array(\SejuAPI\Collections\Riot\Season)|array(int)|int Array of Season IDs (Numeric values) embedded or not in a Season object. If this array is not provided, or is empty, every season data will be used.
+     * @param $endTime long The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+     * @param $beginTime long  	The begin time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+     * @param $endIndex int The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
+     * @param $beginIndex int  	The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
+     * @return \SejuAPI\DTO\Riot\MatchlistDTO Data object
      * @author Piwaye
      * @since 1.0
      * @version 1.0
      */
     public function getMatchslistsByAccount($encryptedAccountId, $champion = null, $queue = null, $season = null, $endTime = null, $beginTime = null, $endIndex = null, $beginIndex = null){
-        /*$query = "https://" . $this->host . "/lol/champion-mastery/v4/champion-masteries/by-summoner/" . $encryptedSummonerID;
-        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \SejuAPI\Collections\Riot\QueryHeader::GET, $query);
+        $query = "https://" . $this->host . "/lol/match/v4/matchlists/by-account/" . $encryptedAccountId;
         
-        if(is_array($response)){
-            $responseDTO = array();
+        //Managing additionnal parameters ADP
+        $firstAdditionalAdded = false;
 
-            for($iterableResponse = 0; $iterableResponse < count($response); $iterableResponse++){
-                $partialResponseDTO = new \SejuAPI\DTO\Riot\ChampionMasteryDTO();
-
-                if($response[$iterableResponse]["chestGranted"] == 1)
-                    $partialResponseDTO->setChestGranted(true);
+        //ADP : Has champion set been set ?
+        if(!is_null($champion)){
+            if(!is_array($champion)){
+                if(!$firstAdditionalAdded){
+                    $query .= "?champion=" . $champion;
+                    $firstAdditionalAdded = true;
+                }
                 else
-                    $partialResponseDTO->setChestGranted(false);
-                
-                $partialResponseDTO->setChampionLevel($response[$iterableResponse]["championLevel"]);
-                $partialResponseDTO->setChampionPoints($response[$iterableResponse]["championPoints"]);
-                $partialResponseDTO->setChampionId($response[$iterableResponse]["championId"]);
-                $partialResponseDTO->setChampionPointsUntilNextLevel($response[$iterableResponse]["championPointsUntilNextLevel"]);
-                $partialResponseDTO->setLastPlayTime($response[$iterableResponse]["championPoints"]);
-                $partialResponseDTO->setTokensEarned($response[$iterableResponse]["tokensEarned"]);
-                $partialResponseDTO->setChampionPointsSinceLastLevel($response[$iterableResponse]["championPointsSinceLastLevel"]);
-                $partialResponseDTO->setSummonerId($response[$iterableResponse]["summonerId"]);
+                    $query .= "&champion=" . $champion;                    
+            }
+            else{
+                foreach($champion as $ch){
+                    if(!$firstAdditionalAdded){
+                        $query .= "?champion=" . $ch;
+                        $firstAdditionalAdded = true;
+                    }
+                    else
+                        $query .= "&champion=" . $ch;       
+                }
+            }
+        }
 
-                $responseDTO[] = $partialResponseDTO;
+        //ADP : Has queue set been set ?
+        if(!is_null($queue)){
+            if(!is_array($queue)){
+                if(!$firstAdditionalAdded){
+                    $query .= "?queue=" . $queue;
+                    $firstAdditionalAdded = true;
+                }
+                else
+                    $query .= "&queue=" . $queue;                    
+            }
+            else{
+                foreach($queue as $qu){
+                    if(!$firstAdditionalAdded){
+                        $query .= "?queue=" . $qu;
+                        $firstAdditionalAdded = true;
+                    }
+                    else
+                        $query .= "&queue=" . $qu;       
+                }
+            }
+        }
+
+        //ADP : Has season set been set ?
+        if(!is_null($season)){
+            if(!is_array($season)){
+                if(!$firstAdditionalAdded){
+                    $query .= "?season=" . $season;
+                    $firstAdditionalAdded = true;
+                }
+                else
+                    $query .= "&season=" . $season;                    
+            }
+            else{
+                foreach($season as $se){
+                    if(!$firstAdditionalAdded){
+                        $query .= "?season=" . $se;
+                        $firstAdditionalAdded = true;
+                    }
+                    else
+                        $query .= "&season=" . $se;       
+                }
+            }
+        }
+
+        //ADP : Has endTime set been set ?
+        if(!is_null($endTime)){
+            if(!$firstAdditionalAdded){
+                $query .= "?endTime=" . $endTime;
+                $firstAdditionalAdded = true;
+            }
+            else
+                $query .= "&endTime=" . $endTime;                    
+        }
+
+        //ADP : Has beginTime set been set ?
+        if(!is_null($beginTime)){
+            if(!$firstAdditionalAdded){
+                $query .= "?beginTime=" . $beginTime;
+                $firstAdditionalAdded = true;
+            }
+            else
+                $query .= "&beginTime=" . $beginTime;                    
+        }
+
+        //ADP : Has endIndex set been set ?
+        if(!is_null($endIndex)){
+            if(!$firstAdditionalAdded){
+                $query .= "?endIndex=" . $endIndex;
+                $firstAdditionalAdded = true;
+            }
+            else
+                $query .= "&endIndex=" . $endIndex;                    
+        }
+
+        //ADP : Has beginIndex set been set ?
+        if(!is_null($beginIndex)){
+            if(!$firstAdditionalAdded){
+                $query .= "?beginIndex=" . $beginIndex;
+                $firstAdditionalAdded = true;
+            }
+            else
+                $query .= "&beginIndex=" . $beginIndex;                    
+        }
+
+        $response = $this->callManager->sendQuery($this->endpointName, $this->serviceRegion, \SejuAPI\Collections\Riot\QueryHeader::GET, $query);
+
+        print_r($response);
+
+        if(is_array($response)){
+            $responseDTO = new \SejuAPI\DTO\Riot\MatchlistDto();
+
+            $responseDTO->setTotalGames($response["totalGames"]);
+            $responseDTO->setStartIndex($response["startIndex"]);
+            $responseDTO->setEndIndex($response["endIndex"]);
+
+            $matchArray = [];
+            for($iterableResponse = 0; $iterableResponse < count($response["matches"]); $iterableResponse++){
+                $resp = $response["matches"][$iterableResponse];
+
+                $partialResponseDTO = new \SejuAPI\DTO\Riot\MatchReferenceDTO();
+                $partialResponseDTO->setLane($resp["lane"]);
+                $partialResponseDTO->setGameId($resp["gameId"]);
+                $partialResponseDTO->setChampion($resp["champion"]);
+                $partialResponseDTO->setPlatformId($resp["platformId"]);
+                $partialResponseDTO->setSeason($resp["season"]);
+                $partialResponseDTO->setQueue($resp["queue"]);
+                $partialResponseDTO->setRole($resp["role"]);
+                $partialResponseDTO->setTimestamp($resp["timestamp"]);
+
+                $matchArray[] = $partialResponseDTO;
             }
 
+            $responseDTO->setMatches($matchArray);
+            
             return $responseDTO;
-        }*/
+        }
 
         throw new \SejuAPI\Exceptions\Riot\UnsupportedAPICall();
     }
